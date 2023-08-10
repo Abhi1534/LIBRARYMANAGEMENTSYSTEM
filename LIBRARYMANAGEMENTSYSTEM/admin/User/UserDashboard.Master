@@ -1,0 +1,581 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="UserDashboard.master.cs" Inherits="LIBRARYMANAGEMENTSYSTEM.admin.User.UserDashboard" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <meta charset="utf-8">
+    <title>THCAA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+
+    <!-- Favicons -->
+    <link href="../../images/MainLogo.png" rel="icon">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="../assets/plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="../assets/plugins/fontawesome/css/all.min.css">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+
+
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+			<script src="assets/js/html5shiv.min.js"></script>
+			<script src="assets/js/respond.min.js"></script>
+		<![endif]-->
+    <style>
+        .submenu {
+            display: none;
+            padding-left: 20px;
+        }
+
+            .submenu.show {
+                display: block;
+            }
+
+        .sidenav {
+            width: 298px;
+            position: initial;
+            z-index: 1;
+            top: 260px;
+            left: 16px;
+            background-color: #fff;
+            overflow-x: hidden;
+            min-height: 200px;
+        }
+
+            .sidenav a {
+                border-bottom: 1px solid #f0f0f0 !important;
+                border-top: 1px solid #f0f0f0 !important;
+            }
+
+            /* Style the sidenav links and the dropdown button */
+            .sidenav a, .dropdown-btn {
+                padding: 16px 20px;
+                text-decoration: none;
+                font-size: 14px !important;
+                font-family: "Lato", sans-serif !important;
+                color: #818181;
+                display: block;
+                border: none;
+                background: none;
+                width: 100%;
+                text-align: left;
+                cursor: pointer;
+                outline: none;
+            }
+
+                /* On mouse-over */
+                .sidenav a:hover, .dropdown-btn:hover {
+                    color: #083c88;
+                }
+
+        /* Main content */
+
+
+        /* Add an active class to the active dropdown button */
+
+
+        /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+        .dropdown-container {
+            display: none;
+            background-color: #fff;
+            padding-left: 8px;
+            color: #3F51B5;
+        }
+
+        /* Optional: Style the caret down icon */
+        .fa-caret-down {
+            float: right;
+            padding-right: 8px;
+        }
+
+        /* Some media queries for responsiveness */
+        @media screen and (max-height: 450px) {
+            .sidenav {
+                padding-top: 15px;
+            }
+
+                .sidenav a {
+                    font-size: 18px;
+                }
+        }
+    </style>
+    <style>
+        span.select2.select2-container.select2-container--default.select2-container--below.select2-container--focus {
+            display: none;
+        }
+
+        span.select2.select2-container.select2-container--default.select2-container--below {
+            display: none !important;
+        }
+
+        span.select2-selection.select2-selection--single {
+            visibility: collapse;
+        }
+    </style>
+    <style>
+        table#ContentPlaceHolder1_grid_data th.gridHeadStyle, tr td {
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th.gridHeadStyle {
+            background: #cdcdcd;
+        }
+
+        table#ContentPlaceHolder1_grid_data th {
+            background: #cdcdcd;
+            padding: 11px 2px;
+            text-align: center;
+        }
+
+        .zoom {
+            transition: transform .2s;
+            width: 300px;
+            height: 300px;
+        }
+
+            .zoom:hover {
+                -ms-transform: scale(1.5); /* IE 9 */
+                -webkit-transform: scale(1.5); /* Safari 3-8 */
+                transform: scale(5.1);
+            }
+
+        .chkChoice input {
+            margin-left: 10px;
+            margin-right: 5px;
+        }
+
+        .myCheckBoxList label {
+            padding-right: 20px;
+        }
+
+        .btn-secondary {
+            color: #6c757d;
+            background-color: #fff;
+            border-color: #fff;
+            margin-left: 5px;
+        }
+
+            .btn-secondary:hover {
+                color: #0de0fe;
+                background-color: #fff;
+                border-color: #fff;
+            }
+
+        ul.submenu.show li {
+            list-style-type: none;
+        }
+
+        ul.submenu.show a {
+            padding: 16px 20px;
+            text-decoration: none;
+            font-size: 14px !important;
+            font-family: "Lato", sans-serif !important;
+            color: #818181;
+            display: block;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+            outline: none;
+            border-bottom: 1px solid #f0f0f0 !important;
+            border-top: 1px solid #f0f0f0 !important;
+        }
+
+        a.nav-link {
+            padding: 16px 20px;
+            text-decoration: none;
+            font-size: 14px !important;
+            font-family: "Lato", sans-serif !important;
+            color: #818181;
+            display: block;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+            outline: none;
+            border-bottom: 1px solid #f0f0f0 !important;
+            border-top: 1px solid #f0f0f0 !important;
+        }
+
+        nav.sidebar {
+            width: 100%;
+            position: initial;
+            z-index: 1;
+            top: 260px;
+            left: 16px;
+            background-color: #fff;
+            overflow-x: hidden;
+            min-height: 200px;
+        }
+
+        a.nav-link:hover, ul.submenu.show a:hover {
+            color: #3F51B5;
+            font-size: 14px !important;
+        }
+    </style>
+  <%--  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>--%>
+
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <body class="account-page">
+
+                <!-- Main Wrapper -->
+                <div class="main-wrapper">
+
+                    <!-- Header -->
+                    <header class="header">
+                        <nav class="navbar navbar-expand-lg header-nav">
+                            <div class="navbar-header">
+                                <a id="mobile_btn" href="javascript:void(0);">
+                                    <span class="bar-icon">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </span>
+                                </a>
+                                <a href="index.aspx" class="navbar-brand logo">
+                                    <img src="../../images/Sublogo.png" height="100px!important" alt="Logo">
+                                </a>
+                            </div>
+                            <div class="main-menu-wrapper">
+                                <div class="menu-header">
+                                    <a href="index.aspx" class="menu-logo">
+                                        <img src="../../images/MainLogo.png" class="img-fluid" alt="Logo">
+                                    </a>
+                                    <a id="menu_close" class="menu-close" href="javascript:void(0);">
+                                        <i class="fas fa-times"></i>
+                                    </a>
+                                </div>
+
+                            </div>
+                            <ul class="nav header-navbar-rht">
+                                <li class="nav-item contact-item">
+                                    <div class="header-contact-img">
+                                        <i class="far fa-hospital"></i>
+                                    </div>
+                                    <div class="header-contact-detail">
+                                        <p class="contact-header">Contact</p>
+                                        <p class="contact-info-header">+91 81259 13755</p>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </nav>
+
+                    </header>
+                    <!-- /Header -->
+
+                    <!-- Breadcrumb -->
+                    <div class="breadcrumb-bar" style="background-color: #000;">
+                        <div class="container-fluid">
+                            <div class="row align-items-center">
+                                <div class="col-md-6 col-6">
+                                    <nav aria-label="breadcrumb" class="page-breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item"><a href="../User/UserDasboard.aspx">Home</a></li>
+                                           <%-- <li class="breadcrumb-item active" aria-current="page">Dashboard</li>--%>
+                                        </ol>
+                                    </nav>
+                                    
+                                </div>
+                                <div class="col-md-6 col-6">
+                                    <nav aria-label="breadcrumb" class="page-breadcrumb">
+                                        <ol class="breadcrumb" style="float: right;">
+                                            <li class="breadcrumb-item">
+                                                <button type="button" class="btn btn-block btn-outline-primary"><a href="../../index.aspx">Logout</a></button>
+                                            </li>
+                                            <!-- <li class="breadcrumb-item active" aria-current="page">Dashboard</li> -->
+                                        </ol>
+                                    </nav>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Breadcrumb -->
+
+                    <!-- Page Content -->
+
+                    <div class="content">
+                        <div class="container-fluid">
+
+                            <div class="row">
+
+                                <!-- Profile Sidebar -->
+                                <div class="col-md-3 col-lg-3 col-xl-3 theiaStickySidebar">
+                                    <div class="profile-sidebar">
+                                        <div class="widget-profile pro-widget-content">
+                                            <div class="profile-info-widget">
+                                                <a href="#" class="booking-doc-img">
+                                                    <asp:Image ID="img_photoupload" runat="server"  Height="150px" Width="150px" />
+                                                    <asp:LinkButton ID="btnImageUpload" runat="server" OnClick="btnImageUpload_Click"></asp:LinkButton>
+                                                    <input type="file" id="FileUploadImage" style="display: none;" />
+                                                    <asp:HiddenField ID="hfFileName" runat="server" />
+                                                    <asp:HiddenField ID="hfUploadFilePath" runat="server" />
+                                                    <%-- <asp:LinkButton ID="btnImageUpload" runat="server" OnClick="btnImageUpload_Click"></asp:LinkButton>
+                                                    <input type="file" id="FileUploadImage" runat="server" style="display: none;" />
+                                                    <asp:HiddenField ID="hfFileName" runat="server" />
+                                                    <asp:HiddenField ID="hfUploadFilePath" runat="server" />--%>
+                                                </a>
+
+                                                <div class="profile-det-info">
+                                                    <h3>
+                                                        <asp:Label ID="lbl_username" runat="server" /></h3>
+                                                    <div class="patient-details">
+                                                        <h5><i class="fas fa-birthday-cake"></i>
+                                                            <asp:Label ID="lbl_Dob" runat="server" /></h5>
+                                                        <h5 class="mb-0"><i class="fas fa-map-marker-alt"></i>
+                                                            <asp:Label ID="lbl_address" runat="server" /></h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <nav class="sidebar">
+                                            <div class="sidebar-sticky">
+                                                <ul class="nav flex-column">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" href="../User/UserDasboard.aspx">Dashboard</a>
+                                                    </li>
+
+                                                    <li class="nav-item">
+                                                        <a class="nav-link">Services <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                                                        <ul class="submenu">
+                                                            <li><a href="IDCardRequest.aspx">ID Card</a></li>
+                                                            <li><a href="proximityCard.aspx">Proximity Card</a></li>
+                                                            <li><a href="CarPass.aspx">Car Pass</a></li>
+                                                            <li><a href="PracticeCertificate.aspx">Practice Certificate</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" href="../User/MembersBookStatus.aspx">Library</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" href="../User/Transactions.aspx">Transactions</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" href="../User/UserAddReceipts.aspx">Donation/Cost</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" href="../User/UserInvoice.aspx">Invoice List</a>
+                                                    </li>
+                                                     <li class="nav-item">
+                                                        <a class="nav-link" href="../User/PasswordChange.aspx">Change Password</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" href="../User/profile.aspx">Profile Settings</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </nav>
+
+
+                                    </div>
+                                </div>
+                                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                                </asp:ContentPlaceHolder>
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- /Page Content -->
+
+                    <!-- Footer -->
+                    <footer class="footer">
+
+                        <!-- Footer Top -->
+                        <div class="footer-top">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-lg-9 col-md-9">
+
+                                        <!-- Footer Widget -->
+                                        <div class="footer-widget footer-about">
+                                            <div class="footer-logo">
+                                            </div>
+                                            <div class="footer-about-content">
+                                                <p>Disclaimer: While every effort has been made to keep the information on this site accurate. The material contained on this site and on the associated web pages is general information and is not intended to be advice on any particular matter. Visitors to this site should seek appropriate and verify all information before acting on the basis of any information contained herein. The TELANGANA High Court Advocates Association expressly disclaim any and all liability to any person, in respect of anything and of the consequences of anything done or omitted to be done by any such person in reliance upon the contents of this site and associated web pages.</p>
+                                                <div class="social-icon">
+                                                    <ul>
+                                                        <li>
+                                                            <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#" target="_blank"><i class="fab fa-dribbble"></i></a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /Footer Widget -->
+
+                                    </div>
+
+
+
+
+
+                                    <div class="col-lg-3 col-md-3">
+
+                                        <!-- Footer Widget -->
+                                        <div class="footer-widget footer-contact">
+                                            <h2 class="footer-title">Contact Us</h2>
+                                            <div class="footer-contact-info">
+                                                <div class="footer-address">
+                                                    <span><i class="fas fa-map-marker-alt"></i></span>
+                                                    <p>Telangana High Court Advocates’ Association, Survey No. 8 & 9, Hyderabad, Telangana -98, India. </p>
+                                                </div>
+                                                <p>
+                                                    <i class="fas fa-phone-alt"></i>
+                                                    +91 81259 13755
+                                                </p>
+                                                <p class="mb-0">
+                                                    <i class="fas fa-envelope"></i>
+                                                    telanganahcaa@gmail.com
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <!-- /Footer Widget -->
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /Footer Top -->
+
+                        <!-- Footer Bottom -->
+                        <div class="footer-bottom">
+                            <div class="container-fluid">
+
+                                <!-- Copyright -->
+                                <div class="copyright">
+                                    <div class="row">
+                                        <div class="col-md-9 col-lg-9">
+                                            <div class="copyright-text">
+                                                <p class="mb-0">© 2023 Telangana High Court Advocates’ Association. All rights reserved.         Powered by GVR INFOSYSTEMS PVT LTD</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-lg-3">
+
+                                            <!-- Copyright Menu -->
+                                            <div class="copyright-menu">
+                                                <ul class="policy-menu">
+                                                    <li><a href="term-condition.html">Terms and Conditions</a></li>
+                                                    <li><a href="privacy-policy.html">Policy</a></li>
+                                                </ul>
+                                            </div>
+                                            <!-- /Copyright Menu -->
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /Copyright -->
+
+                            </div>
+                        </div>
+                        <!-- /Footer Bottom -->
+
+                    </footer>
+                    <!-- /Footer -->
+
+                </div>
+
+              <%--  <div class="modal fade" id="tooltipmodal" tabindex="-1" role="dialog" aria-labelledby="tooltipmodal" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+
+                            <div class="success-card">
+                                <div class="card-body">
+                                    <div class="success-cont">
+                                        <i class="fas fa-check"></i>
+                                        <h3>Successfully!</h3>
+                                        <p class="mb-0">Product ID: 245468</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" type="button" data-dismiss="modal" data-original-title="" title="">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>--%>
+                <!-- /Main Wrapper -->
+
+                <!-- jQuery -->
+                <script src="../assets/js/jquery.min.js"></script>
+
+                <!-- Bootstrap Core JS -->
+                <script src="../assets/js/popper.min.js"></script>
+                <script src="../assets/js/bootstrap.min.js"></script>
+
+                <!-- Select2 JS -->
+                <script src="../assets/plugins/select2/js/select2.min.js"></script>
+
+                <!-- Datetimepicker JS -->
+                <script src="../assets/js/moment.min.js"></script>
+                <script src="../assets/js/bootstrap-datetimepicker.min.js"></script>
+
+                <!-- Sticky Sidebar JS -->
+                <script src="../assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+                <script src="../assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+
+                <!-- Custom JS -->
+                <script src="../assets/js/script.js"></script>
+
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+                <script>
+                    $(document).ready(function () {
+                        $('.nav-link').click(function () {
+                            $(this).next('.submenu').toggleClass('show');
+                        });
+                    });
+                </script>
+                <script type="text/javascript">
+                    $(function () {
+                        //alert('hi');
+                        $("#btnImageUpload").click(function () {
+                            $("#FileUploadImage").click();
+                            //alert('a');
+                        });
+                        $("#FileUploadImage").change(function () {
+                            var fileName = this.value.replace(/\\/g, '/').replace(/.*\//, '')
+                            $('#hfFileName').val(fileName);
+                            $('#hfUploadFilePath').val($(this).val());
+                        });
+                    });
+                </script>
+    </form>
+</body>
+</html>

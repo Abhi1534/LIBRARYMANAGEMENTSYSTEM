@@ -1,0 +1,321 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="AdminDashboard.master.cs" Inherits="LIBRARYMANAGEMENTSYSTEM.admin.admin.AdminDashboard" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>THCAA - Dashboard</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="../../images/MainLogo.png">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+
+    <!-- Feathericon CSS -->
+    <link rel="stylesheet" href="assets/css/feathericon.min.css">
+
+    <link rel="stylesheet" href="assets/plugins/morris/morris.css">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">
+
+    <!--[if lt IE 9]>
+			<script src="assets/js/html5shiv.min.js"></script>
+			<script src="assets/js/respond.min.js"></script>
+		<![endif]-->
+    <style>
+        .rounded-circle {
+            border-radius: 50% !important;
+            box-shadow: 1px 2px 3px -1px;
+        }
+
+        .avatar.avatar-sm {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <!-- Main Wrapper -->
+        <div class="main-wrapper">
+
+            <!-- Header -->
+            <div class="header">
+
+                <!-- Logo -->
+                <div class="header-left">
+                    <a href="index.aspx" class="logo">
+                        <img src="../../images/Sublogo.png" alt="Logo">
+                    </a>
+                    <a href="index.aspx" class="logo logo-small">
+                        <img src="../../images/MainLogo.png" alt="Logo" width="30" height="30">
+                    </a>
+                </div>
+                <!-- /Logo -->
+
+                <a href="javascript:void(0);" id="toggle_btn">
+                    <i class="fe fe-text-align-left"></i>
+                </a>
+
+                <%-- <div class="top-nav-search">
+                <form>
+                    <input type="text" class="form-control" placeholder="Search here">
+                    <button class="btn" type="submit"><i class="fa fa-search"></i></button>
+                </form>
+            </div>--%>
+
+                <!-- Mobile Menu Toggle -->
+                <a class="mobile_btn" id="mobile_btn">
+                    <i class="fa fa-bars"></i>
+                </a>
+                <!-- /Mobile Menu Toggle -->
+
+                <!-- Header Right Menu -->
+                <ul class="nav user-menu">
+
+                    <!-- Notifications -->
+                    <%-- <li class="nav-item dropdown noti-dropdown">
+                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                            <i class="fe fe-bell"></i><span class="badge badge-pill">3</span>
+                        </a>
+                        <div class="dropdown-menu notifications">
+                            <div class="topnav-dropdown-header">
+                                <span class="notification-title">Notifications</span>
+                                <a href="javascript:void(0)" class="clear-noti">Clear All </a>
+                            </div>
+                            <div class="noti-content">
+                                <ul class="notification-list">
+                                    <li class="notification-message">
+                                        <a href="#">
+                                            <div class="media">
+                                                <span class="avatar avatar-sm">
+                                                    <img class="avatar-img rounded-circle" alt="User Image" src="assets/img/doctors/doctor-thumb-01.jpg">
+                                                </span>
+                                                <div class="media-body">
+                                                    <p class="noti-details"><span class="noti-title">Ruby Perrin</span> Schedule <span class="noti-title">her appointment</span></p>
+                                                    <p class="noti-time"><span class="notification-time">4 mins ago</span></p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="notification-message">
+                                        <a href="#">
+                                            <div class="media">
+                                                <span class="avatar avatar-sm">
+                                                    <img class="avatar-img rounded-circle" alt="User Image" src="assets/img/patients/patient1.jpg">
+                                                </span>
+                                                <div class="media-body">
+                                                    <p class="noti-details"><span class="noti-title">Charlene Reed</span> has booked her appointment to <span class="noti-title">Ruby Perrin</span></p>
+                                                    <p class="noti-time"><span class="notification-time">6 mins ago</span></p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="notification-message">
+                                        <a href="#">
+                                            <div class="media">
+                                                <span class="avatar avatar-sm">
+                                                    <img class="avatar-img rounded-circle" alt="User Image" src="assets/img/patients/patient2.jpg">
+                                                </span>
+                                                <div class="media-body">
+                                                    <p class="noti-details"><span class="noti-title">Travis Trimble</span> sent a amount of $210 for his <span class="noti-title">appointment</span></p>
+                                                    <p class="noti-time"><span class="notification-time">8 mins ago</span></p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="notification-message">
+                                        <a href="#">
+                                            <div class="media">
+                                                <span class="avatar avatar-sm">
+                                                    <img class="avatar-img rounded-circle" alt="User Image" src="assets/img/patients/patient3.jpg">
+                                                </span>
+                                                <div class="media-body">
+                                                    <p class="noti-details"><span class="noti-title">Carl Kelly</span> send a message <span class="noti-title">to his doctor</span></p>
+                                                    <p class="noti-time"><span class="notification-time">12 mins ago</span></p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="topnav-dropdown-footer">
+                                <a href="#">View all Notifications</a>
+                            </div>
+                        </div>
+                    </li>--%>
+                    <!-- /Notifications -->
+
+                    <!-- User Menu -->
+                    <li class="nav-item dropdown has-arrow">
+                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                            <span class="user-img">
+                                <asp:Image ID="img_photo_avatar" runat="server" Width="50px" Height="50px" class="rounded-circle" />
+                                
+                        </a>
+                        <div class="dropdown-menu">
+                            <div class="user-header">
+                                <div class="avatar avatar-sm">
+                                    <asp:Image ID="img_drphoto" runat="server" Width="60px" alt="User Image" class="avatar-img rounded-circle" />
+                                    <%-- <img src="assets/img/profiles/avatar-01.jpg" alt="User Image" class="avatar-img rounded-circle">--%>
+                                </div>
+                                <div class="user-text">
+                                    <h6>
+                                        <asp:Label ID="lbl_pname" runat="server" /></h6>
+                                    <p class="text-muted mb-0">
+                                        <asp:Label ID="lbl_profiletype" runat="server" />
+                                    </p>
+                                </div>
+                            </div>
+                            <a class="dropdown-item" href="profile.aspx">My Profile</a>
+                            <%--<a class="dropdown-item" href="settings.html">Settings</a>--%>
+                            <a class="dropdown-item" href="../../index.aspx">Logout</a>
+                        </div>
+                    </li>
+                    <!-- /User Menu -->
+
+                </ul>
+                <!-- /Header Right Menu -->
+
+            </div>
+            <!-- /Header -->
+
+            <!-- Sidebar -->
+            <div class="sidebar" id="sidebar">
+                <div class="sidebar-inner slimscroll">
+                    <div id="sidebar-menu" class="sidebar-menu">
+                        <ul>
+                            <%-- <li class="menu-title">
+                                <span>Main</span>
+                            </li>--%>
+                            <li class="active">
+                                <a href="index.aspx"><span>Dashboard</span></a>
+                            </li>
+
+                            <li class="submenu" runat="server" id="lnkMasterMenu">
+                                <a href="#"><span>Masters</span><span class="menu-arrow"></span></a>
+                                <ul style="display: none;">
+                                    <li><a href="MembershipTypeMaster.aspx">Membership Type</a></li>
+                                    <li><a href="BoardMembers.aspx">Board Members Reg</a></li>
+                                    <li><a href="EmployeesInformation.aspx">Employee Registration</a></li>
+                                    <li><a href="AddsMaster.aspx">Adds</a></li>
+                                    <li><a href="Notifications.aspx">Notifications</a></li>
+                                    <li><a href="LatestNews.aspx">Latest News</a></li>
+
+                                </ul>
+
+                            </li>
+
+                            <li runat="server" id="lnkMembReg">
+                                <a href="MemberRegistraion.aspx">
+                                    <span>Membership Registration</span></a>
+                            </li>
+                            <li class="submenu" runat="server" id="lnkBookMaster">
+                                <a href="#"><span>Book Masters</span><span class="menu-arrow"></span></a>
+                                <ul style="display: none;">
+                                    <li><a href="RackSectionMaster.aspx"><span>Section</span></a></li>
+                                    <li><a href="RackMaster.aspx"><span>Racks</span></a></li>
+                                    <li><a href="SelfMaster.aspx"><span>Selfs</span></a></li>
+                                    <li><a href="SupplierMaster.aspx"><span>Supplier</span></a></li>
+                                    <li><a href="SubjectMaster.aspx"><span>Subject</span></a></li>
+                                    <li><a href="BookEntry.aspx"><span>Book Entry</span></a></li>
+                                    <li><a href="Libabry_Status.aspx"><span>Book Status</span></a></li>
+                                    <li><a href="BookIssue.aspx"><span>Book Issue</span></a></li>
+                                    <li><a href="BookReturn.aspx"><span>Book Return</span></a></li>
+                                    <li><a href="BarcodePrint.aspx"><span>Barcode Print</span></a></li>
+                                </ul>
+                            </li>
+                            <li runat="server" id="lnkPendingApp">
+                                <a href="PendingForApproval.aspx">
+                                    <span>Pending List</span></a>
+                            </li>
+
+                            <li runat="server" id="lnkStampsIssue">
+                                <a href="StampsIssue.aspx">
+                                    <span>Stamps Issue</span></a>
+                            </li>
+
+                            <li runat="server" id="lnkAddFeature">
+                                <a href="Features.aspx">
+                                    <span>Add Features</span></a>
+                            </li>
+                            <li runat="server" id="lnkAddReceipt">
+                                <a href="AddReceipts.aspx">
+                                    <span>Add Receipts</span></a>
+                            </li>
+                            <li runat="server" id="lnkInvoiceList">
+                                <a href="Invoice.aspx">
+                                    <span>Invoice List</span></a>
+                            </li>
+                            <li runat="server" id="lnk_expenditure">
+                                <a href="Expenditure.aspx">
+                                    <span>Expenditure</span></a>
+                            </li>
+                            <li runat="server" id="lnkExpenses">
+                                <a href="Expenses.aspx">
+                                    <span>Expenses</span></a>
+                            </li>
+                            <li runat="server" id="lnkExpPendingForApproval">
+                                <a href="ExpPendingForApproval.aspx">
+                                    <span>ExpPendingForApproval</span></a>
+                            </li>
+
+
+                            <li runat="server" id="lnlprofile">
+                                <a href="profile.aspx">
+                                    <span>Profile</span></a>
+                            </li>
+                             <li runat="server" id="lnlIDCard">
+                                <a href="IDCardDetails.aspx">
+                                    <span>View IDCard Details</span></a>
+                            </li>
+
+
+
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- /Sidebar -->
+
+            <!-- Page Wrapper -->
+
+            <!-- /Page Wrapper -->
+            <div>
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+        </div>
+        <!-- /Main Wrapper -->
+
+        <!-- jQuery -->
+        <script src="assets/js/jquery-3.2.1.min.js"></script>
+
+        <!-- Bootstrap Core JS -->
+        <script src="assets/js/popper.min.js"></script>
+        <script src="assets/js/bootstrap.min.js"></script>
+
+        <!-- Slimscroll JS -->
+        <script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+        <script src="assets/plugins/raphael/raphael.min.js"></script>
+        <script src="assets/plugins/morris/morris.min.js"></script>
+        <script src="assets/js/chart.morris.js"></script>
+
+        <!-- Custom JS -->
+        <script src="assets/js/script.js"></script>
+    </form>
+</body>
+</html>
